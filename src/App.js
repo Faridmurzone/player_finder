@@ -5,7 +5,7 @@ import PlayerList from './players/components/PlayerList';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="container">
         <Filters />
         <PlayerList />
       </div>

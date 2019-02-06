@@ -19,7 +19,7 @@ class Filters extends Component {
                         <option value="9">Right-Back</option>
                     </select>   
                     <input type="text" className="form-control mb-2 mr-sm-2" id="formInputAge" placeholder="Age" />
-                    <button type="button" className="btn btn-light">Light</button>
+                    <button type="button" className="btn btn-light">Filter</button>
                 </form>
             </div>
         )
