@@ -6,6 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+        <h1>Football Player Finder</h1>
         <Filters />
         <PlayerList />
       </div>

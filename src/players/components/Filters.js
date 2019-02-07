@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Filters extends Component {
     constructor(){
@@ -14,41 +15,52 @@ class Filters extends Component {
 
     handleSubmit = event => {
         event.preventDefault()
-        console.log(this.state, 'submit')
+        const {name, age, position} = event.target;
+        console.log(position.value, 'submit')
+        console.log(name.value, 'submit')
+        console.log(age.value, 'submit')
+        this.props.dispatch({
+            type: 'SEARCH_PLAYER',
+            payload: {
+                query: name.value
+            }
+        })
     }
 
     render() {
         return(
             <div className="d-flex justify-content-left m-2">
-                <form className="form-inline">
+                <form className="form-inline" id="filters" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                     <input type="text" 
+                        name="name"
                         className="form-control mr-sm-2" 
                         id="formInputName" 
                         placeholder="Player Name"
-                        pattern="[a-zA-z\s]"
+                        pattern="[a-zA-z\s]*"
                         value={this.state.playerInput} 
                         onChange={this.onlyLetters.bind(this)} />
-                    <select className="custom-select" id="formSelectPosition">
+                    <select className="custom-select" id="formSelectPosition" name="position">
                         <option>Position...</option>
-                        <option value="1">Attacking Midfield</option>
-                        <option value="2">Central Midfield</option>
-                        <option value="3">Centre-Forward</option>
-                        <option value="4">Defensive Midfield</option>
-                        <option value="5">Keeper</option>
-                        <option value="6">Left Midfield</option>
-                        <option value="7">Left Wing</option>
-                        <option value="8">Left Back</option>
-                        <option value="9">Right-Back</option>
+                        <option value="Attacking Midfield">Attacking Midfield</option>
+                        <option value="Central Midfield">Central Midfield</option>
+                        <option value="Centre-Forward">Centre-Forward</option>
+                        <option value="Defensive Midfield">Defensive Midfield</option>
+                        <option value="Keeper">Keeper</option>
+                        <option value="Left Midfiel">Left Midfield</option>
+                        <option value="Left Wing">Left Wing</option>
+                        <option value="Left Back">Left Back</option>
+                        <option value="Right-Back">Right-Back</option>
                     </select>   
                     <input type="number" 
+                        name="age"
                         className="form-control ml-2" 
                         id="formInputAge" 
                         placeholder="Age" 
                         min="18"
                         max="40"
                         />
-                    <button type="button" className="btn btn-light ml-2" onClick={this.handleSubmit}>Filter</button>
+                    <button type="submit" className="btn btn-light ml-2" form="filters" value="Submit" >Filter</button>
                     </div>
                 </form>
             </div>
@@ -56,4 +68,4 @@ class Filters extends Component {
     }
 }
 
-export default Filters;
+export default connect()(Filters);

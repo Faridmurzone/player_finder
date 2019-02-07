@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-const API = "https://football-players-b31f2.firebaseio.com/players.json?print=pretty";  
-
-class PlayerList extends Component {
-    state = {
-        players: []
-      }
-    // This functions may be placed in other side later  
-    // Function to get the API URL
-    requestURL = () => {
-        fetch(API)
-        .then(results => results.json())
-        .then(data => this.setState({players: data}))
-        .catch(err => ({err}))
-      }
-      
+class PlayerList extends Component {      
     // Function to convert the birthDate to age
     dateToAge = (birthDate) => {
+        console.log(birthDate.split('-'))
         var dateParts = birthDate.split('-');
         var date = new Date(dateParts[0], dateParts[1], dateParts[2]);
         var ageDifMs = Date.now() - date.getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        var ageDate = new Date(ageDifMs); 
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
 
-      componentDidMount() {
-        this.requestURL()
+    printPlayers = () => {
+      const players = this.props.players
+      let tbody = []
+      for (const i in players) {
+        tbody.push(
+          <tr key={players[i].name}>
+          <td>{players[i].name}</td>    
+          <td>{players[i].position}</td>   
+          <td>{players[i].nationality}</td>   
+          {/* <td>{this.dateToAge(players[i].dateOfBirth)}</td>  */}
+          <td>{players[i].dateOfBirth}</td> 
+          </tr>)
       }
-    
+      return tbody
+    }
 
     render() {
-        const { players } = this.state
-        
         return(
             <div className="col-md-8">
             <table className="table">
@@ -40,17 +36,14 @@ class PlayerList extends Component {
                     <tr>
                     <th scope="col">Player</th>
                     <th scope="col">Position</th>
+                    <th scope="col">nationality</th>
                     <th scope="col">Age</th>
                     </tr>
                 </thead>
                 <tbody>
-                    { players.map(player => 
-                    <tr key={player.name}>
-                    <th scope="row">{player.name}</th>
-                    <td>{player.position}</td>
-                    <td>{this.dateToAge(player.dateOfBirth)}</td>
-                    </tr>)
-                    }
+                  {
+                    this.printPlayers()
+                  }
                 </tbody>
             </table>
             </div>
@@ -60,10 +53,24 @@ class PlayerList extends Component {
 
 
 // To do connect
-// function mapStateToProps(state, props) {
-//     return {
-//         players: state.data.players
+function mapStateToProps(state, props) {
+    return {
+        players: state.data,
+        search: state.search
+    }
+}
+
+export default connect(mapStateToProps)(PlayerList);
+
+
+// const getFilteredPlayers = createSelector(
+//     [getPlayers],
+//     (players) => {
+//       return _.sortByOrder(articles, ['created'], ['desc']);
 //     }
-// }
-// export default connect(mapStateToProps)(PlayerList);
-export default PlayerList;
+//   ) 
+// export default connect(
+//     (state) => ({
+//         players: getFilteredPlayers(state)
+//     })
+// )(PlayerList);
