@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 const API = "https://football-players-b31f2.firebaseio.com/players.json?print=pretty";  
 
@@ -14,9 +15,10 @@ class PlayerList extends Component {
         .then(data => this.setState({players: data}))
         .catch(err => ({err}))
       }
+      
     // Function to convert the birthDate to age
-    dateToAge = (date) => {
-        var dateParts = date.split('-');
+    dateToAge = (birthDate) => {
+        var dateParts = birthDate.split('-');
         var date = new Date(dateParts[0], dateParts[1], dateParts[2]);
         var ageDifMs = Date.now() - date.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
@@ -32,7 +34,7 @@ class PlayerList extends Component {
         const { players } = this.state
         
         return(
-            <div>
+            <div className="col-md-8">
             <table className="table">
                 <thead>
                     <tr>
@@ -56,4 +58,12 @@ class PlayerList extends Component {
     }
 }
 
+
+// To do connect
+// function mapStateToProps(state, props) {
+//     return {
+//         players: state.data.players
+//     }
+// }
+// export default connect(mapStateToProps)(PlayerList);
 export default PlayerList;

@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
 
 class Filters extends Component {
+    constructor(){
+        super()
+        this.state = {playerInput: '', ageInput: ''}
+        this.onlyLetters = this.onlyLetters.bind(this)
+     }
+
+    onlyLetters = text => {
+        const playerInput = (text.target.validity.valid) ? text.target.playerInput : this.state.playerInput;
+        this.setState({ playerInput });
+    }
+
+    handleSubmit = event => {
+        event.preventDefault()
+        console.log(this.state, 'submit')
+    }
+
     render() {
         return(
-            <div>
-                <form className="inline-form">
-                    <input type="text" className="form-control mb-2 mr-sm-2" id="formInputName" placeholder="Player Name" />
-                    <select className="custom-select my-1 mr-sm-2" id="formSelectPosition">
-                        <option defaultValue>Position...</option>
+            <div className="d-flex justify-content-left m-2">
+                <form className="form-inline">
+                    <div className="form-group">
+                    <input type="text" 
+                        className="form-control mr-sm-2" 
+                        id="formInputName" 
+                        placeholder="Player Name"
+                        pattern="[a-zA-z\s]"
+                        value={this.state.playerInput} 
+                        onChange={this.onlyLetters.bind(this)} />
+                    <select className="custom-select" id="formSelectPosition">
+                        <option>Position...</option>
                         <option value="1">Attacking Midfield</option>
                         <option value="2">Central Midfield</option>
                         <option value="3">Centre-Forward</option>
@@ -18,8 +41,15 @@ class Filters extends Component {
                         <option value="8">Left Back</option>
                         <option value="9">Right-Back</option>
                     </select>   
-                    <input type="text" className="form-control mb-2 mr-sm-2" id="formInputAge" placeholder="Age" />
-                    <button type="button" className="btn btn-light">Filter</button>
+                    <input type="number" 
+                        className="form-control ml-2" 
+                        id="formInputAge" 
+                        placeholder="Age" 
+                        min="18"
+                        max="40"
+                        />
+                    <button type="button" className="btn btn-light ml-2" onClick={this.handleSubmit}>Filter</button>
+                    </div>
                 </form>
             </div>
         )
