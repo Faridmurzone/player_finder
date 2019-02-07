@@ -8,12 +8,12 @@ export const updateName = name => ({
     payload: name,
   });
   
-  export const updatePosition = position => ({
+export const updatePosition = position => ({
     type: "filters/UPDATE_POSITION",
     payload: position,
   });
   
-  export const updateAge = age => ({
+export const updateAge = age => ({
     type: "filters/UPDATE_AGE",
     payload: age,
   });

@@ -22,18 +22,16 @@ import './index.css';
     const data = requestURL().then(response => { return response });
 
     const initialState = {
-        players: {
-            ...data
-        }
+        players: {}
     }
 
     console.log(initialState)
     const store = createStore(
         (state) => state,
         initialState,
-        applyMiddleware(thunk),
+        // applyMiddleware(thunk),
         // @ts-ignore
-        // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
 ReactDOM.render(
