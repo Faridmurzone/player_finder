@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import { players, playersHasErrored, playersIsLoading } from './players';
+import { players, playersHasErrored, playersIsLoading, searchPlayers } from './players';
+
 export default combineReducers({
     players,
     playersHasErrored,
-    playersIsLoading
+    playersIsLoading,
+    searchPlayers
 });

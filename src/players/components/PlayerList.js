@@ -55,15 +55,6 @@ class PlayerList extends Component {
     }
 }
 
-
-// To do connect
-// function mapStateToProps(state, props) {
-//     return {
-//         players: state.data,
-//         search: state.search
-//     }
-// }
-
 const mapStateToProps = (state) => {
     return {
         players: state.players,
@@ -80,18 +71,3 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerList);
 
-
-// export default connect(mapStateToProps)(PlayerList);
-
-
-// const getFilteredPlayers = createSelector(
-//     [getPlayers],
-//     (players) => {
-//       return _.sortByOrder(articles, ['created'], ['desc']);
-//     }
-//   ) 
-// export default connect(
-//     (state) => ({
-//         players: getFilteredPlayers(state)
-//     })
-// )(PlayerList)
