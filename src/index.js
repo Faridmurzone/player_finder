@@ -3,40 +3,20 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 // Redux
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-// import reducer from './store/reducers';
+
 // CSS
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-// import data from './players/services/fetchPlayers';
-    const requestURL = () => {
-        return fetch('https://football-players-b31f2.firebaseio.com/players.json?print=pretty')
-        .then(results => results.json())
-        .then(data => { return data })
-        .catch(err => ({err}))
-    }
+// Data
+import configureStore from './store/configStore';
 
-    const data = requestURL().then(response => { return response });
-
-    const initialState = {
-        players: {}
-    }
-
-    console.log(initialState)
-    const store = createStore(
-        (state) => state,
-        initialState,
-        // applyMiddleware(thunk),
-        // @ts-ignore
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    );
+const store = configureStore(); // The config is all in ./store/configStore
 
 ReactDOM.render(
         <Provider store={store}>
-        <App />
+            <App />
         </Provider>
         , document.getElementById('root'));
 

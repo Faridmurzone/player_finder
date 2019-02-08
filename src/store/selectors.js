@@ -1,4 +1,4 @@
-import {createSelector} from "reselect";
+import { createSelector } from "reselect";
 
 export const filteredPlayers = createSelector(
   state => state.filters,
@@ -14,4 +14,4 @@ export const filteredPlayers = createSelector(
         player =>
           age ? String(getAge(player.dateOfBirth)).includes(String(age)) : true
       )
-);
+)
