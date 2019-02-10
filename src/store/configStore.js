@@ -12,10 +12,3 @@ export default function configureStore(initialState) {
             ) 
     );
 }
-
-// const initialState = {
-//     data: {
-//         ...data,
-//     }, 
-//     search: []
-// }

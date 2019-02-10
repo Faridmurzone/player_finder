@@ -39,17 +39,3 @@ export function fetchPlayersData(url) {
   }
 }
 
-// To do
-// Control Filter states
-
-export function searchPlayers(players) {
-  return {
-      type: 'SEARCH_PLAYERS',
-      players
-  }
-}
-
-export function searchName() {
-  return (dispatch) => { dispatch(searchPlayers(true)) }
-  }
-  

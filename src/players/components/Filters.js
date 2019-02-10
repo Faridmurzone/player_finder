@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchName } from '../../store/actions';
 
 class Filters extends Component {
     
     handleSubmit = event => {
         event.preventDefault()
         const {name, age, position} = event.target;
-        console.log(name.value, 'submit')
-        console.log(position.value, 'submit')
-        console.log(age.value, 'submit')
         this.props.dispatch({
             type: 'SEARCH_PLAYER',
             payload: {
                 name: name.value,
-                position: position.value,
-                age: age.value
-            }
+                position: position.value, 
+                age: age.value  }
         })
     }
 
@@ -33,7 +28,7 @@ class Filters extends Component {
                         pattern="[a-zA-z\s]*"
                         />
                     <select className="custom-select" id="formSelectPosition" name="position">
-                        <option>Position...</option>
+                        <option value="">Position...</option>
                         <option value="Attacking Midfield">Attacking Midfield</option>
                         <option value="Central Midfield">Central Midfield</option>
                         <option value="Centre-Forward">Centre-Forward</option>
@@ -60,18 +55,4 @@ class Filters extends Component {
     }
 }
 
-
-// const mapStateToProps = ({ filters }) => ({
-//     name: filters.name,
-//     position: filters.position,
-//     age: filters.age
-//   })
-  
-//   const mapDispatchToProps = {
-//     nameFilterChanged,
-//     positionFilterChanged,
-//     ageFilterChanged
-//   }
-  
-// export default connect(mapStateToProps, mapDispatchToProps)(Filters);
 export default connect()(Filters);

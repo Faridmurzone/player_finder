@@ -12,6 +12,13 @@ import './index.css';
 // Data
 import configureStore from './store/configStore';
 
+// const initialState = {
+//     data: {
+//         ...data,
+//     }, 
+//     search: []
+// }
+
 const store = configureStore(); // The config is all in ./store/configStore
 
 ReactDOM.render(

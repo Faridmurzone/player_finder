@@ -1,5 +1,3 @@
-// import { createSelector } from 'reselect';
-
 export function playersHasErrored(state = false, action) {
   switch (action.type) {
       case 'PLAYERS_HAS_ERRORED':
@@ -34,17 +32,11 @@ const initialState = {
 export function searchPlayers(state = initialState, action) {
   switch (action.type) {
     case "SEARCH_PLAYER":
-      // const list = state.players;
-      // console.log(list)
-      // const results = state.players.filter((player)=>{
-      //   return player.name.includes(action.payload.name)
-      // })
-      //  console.log(results)
       return {
         ...state,
         name: action.payload.name,
-        age: action.payload.position,
-        position: action.payload.age,
+        position: action.payload.position,
+        age: action.payload.age
       }
     default:
       return state;

@@ -1,32 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchPlayersData } from '../../store/actions';
+import dateToAge from '../utils';
 
-class PlayerList extends Component {      
-
-    componentDidMount() {
-        this.props.fetchData('https://football-players-b31f2.firebaseio.com/players.json?print=pretty')
-    }
-
-    // Function to convert the birthDate to age
-    dateToAge = (birthDate) => {
-        var dateParts = birthDate.split('-');
-        var date = new Date(dateParts[0], dateParts[1], dateParts[2]);
-        var ageDifMs = Date.now() - date.getTime();
-        var ageDate = new Date(ageDifMs); 
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
-    }
-
-
+class PlayerList extends Component {
     render() {
-        if (this.props.hasErrored) {
+        const {hasErrored, isLoading} = this.props
+        if (hasErrored) {
             return <p>Sorry! There was an error loading the players</p>;
         }
-
-        if (this.props.isLoading) {
+        if (isLoading) {
             return <p>Loading players…</p>;
         }
-
         return (
             <div className="col-md-12">
             <table className="table">
@@ -39,13 +22,12 @@ class PlayerList extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.players.map((player) => (
-                    <tr key={player.name}>
-                    <td>{player.name}</td>    
-                    <td>{player.position}</td>   
-                    <td>{player.nationality}</td>   
-                    <td>{this.dateToAge(player.dateOfBirth)}</td> 
-                    {/* <td>{players.dateOfBirth}</td>  */}
+                    {this.props.players.map(({ name, position, nationality, dateOfBirth }) => (
+                    <tr key={name}>
+                    <td>{name}</td>    
+                    <td>{position}</td>   
+                    <td>{nationality}</td>   
+                    <td>{dateToAge(dateOfBirth)}</td> 
                     </tr>
                     ))}
                 </tbody>
@@ -55,19 +37,6 @@ class PlayerList extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        players: state.players,
-        hasErrored: state.playersHasErrored,
-        isLoading: state.playersIsLoading
-    }
-}
+export default PlayerList;
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchData: (url) => dispatch(fetchPlayersData(url))
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PlayerList);
 
