@@ -23,13 +23,7 @@ export function players(state = [], action) {
   }
 }
 
-const initialState = {
-  name: "",
-  position: "",
-  age: "",
-};
-
-export function searchPlayers(state = initialState, action) {
+export function searchPlayers(state = {name: "", position: "", age: ""}, action) {
   switch (action.type) {
     case "SEARCH_PLAYER":
       return {

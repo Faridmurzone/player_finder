@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import dateToAge from '../utils';
+import {dateToAge} from '../utils';
 
 class PlayerList extends Component {
     render() {

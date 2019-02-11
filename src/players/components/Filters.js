@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Filters extends Component {
-    
     handleSubmit = event => {
         event.preventDefault()
         const {name, age, position} = event.target;
@@ -47,7 +46,7 @@ class Filters extends Component {
                         min="18"
                         max="40"
                         />
-                    <button type="submit" className="btn btn-light ml-2" form="filters" value="Submit" >Filter</button>
+                    <button type="submit" className="btn btn-light ml-2" form="filters" value="Submit" id="search">Search</button>
                     </div>
                 </form>
             </div>
