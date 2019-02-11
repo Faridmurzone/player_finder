@@ -11,7 +11,7 @@ class PlayerList extends Component {
             return <p>Loading players…</p>;
         }
         return (
-            <div className="col-md-12">
+            <div className="col-md-12" data-test="player-list">
             <table className="table">
                 <thead>
                     <tr>

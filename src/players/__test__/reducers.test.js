@@ -1,6 +1,6 @@
 import { playersHasErrored, playersIsLoading, players, searchPlayers } from '../../store/reducers/players';
 import * as actions from '../../store/actions';
-import * as selectors from '../../store/selectors';
+// import * as selectors from '../../store/selectors';
 import rootReducer from '../../store/reducers';
 import configureStore from 'redux-mock-store';
 import { createStore } from 'redux';

@@ -13,11 +13,12 @@ class Filters extends Component {
                 age: age.value  }
         })
     }
+    
 
     render() {
         return(
-            <div className="d-flex justify-content-around m-2">
-                <form className="form-inline col-md-12" id="filters" onSubmit={this.handleSubmit}>
+            <div className="d-flex justify-content-around m-2" data-test="filters">
+                <form className="form-inline col-md-12" id="filters" onSubmit={this.handleSubmit} data-test="submit">
                     <div className="form-group col-md-12 text-center">
                     <input type="text" 
                         name="name"
@@ -46,7 +47,7 @@ class Filters extends Component {
                         min="18"
                         max="40"
                         />
-                    <button type="submit" className="btn btn-light ml-2" form="filters" value="Submit" id="search">Search</button>
+                    <button type="submit" className="btn btn-light ml-2" form="filters" value="Submit">Search</button>
                     </div>
                 </form>
             </div>

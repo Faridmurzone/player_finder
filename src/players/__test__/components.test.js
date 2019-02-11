@@ -1,55 +1,73 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import Enzyme, {mount, shallow, render} from 'enzyme';
+import Enzyme, {mount} from 'enzyme';
+import Filters from '../components/Filters';
 import Adapter from 'enzyme-adapter-react-16';
 import configureStore from 'redux-mock-store';
-import App from '../../App';
-import Players from '../containers/Players';
 import PlayerList from '../components/PlayerList';
-import Filters from '../components/Filters';
-import {fetchPlayersData} from '../../store/actions';
-import configStore from '../../store/configStore';
+import {fetchPlayersData} from  '../../store/actions'
 
 Enzyme.configure({adapter: new Adapter()})
 
-describe('Test components (both containers and components)', () => {
-// Test Players components
-  it('Test if PlayerList module renders', () => {
+const setUp = (props={}, loading=false, errored=false) => {
+    const mockStore = configureStore()
+    const store = mockStore()
     const results = []
-    const isLoading = false
-    const hasErrored = false
-    const searchPlayers = {"age": "", "name": "", "position": "Centre-Forward"}
-    shallow(<Filters />)
-    shallow(<PlayerList players={results} isLoading={isLoading} hasErrored={hasErrored} search={searchPlayers} />);
-  })
+    const isLoading = loading
+    const hasErrored = errored
+    const searchPlayers = {"age": "", "name": "", "position": ""}
+    const component = mount(
+        <Provider store={store}>
+            <Filters />
+            <PlayerList players={results} isLoading={isLoading} hasErrored={hasErrored} search={searchPlayers} />
+        </Provider>)
+    return component;
+}
+describe('Testing if components render...', () => {
+    let component;
+    beforeEach(() => {
+        component = setUp();
+    })
+    it('testing Filters', () => {
+        const wrapper = component.find(`[data-test="filters"]`)
+        expect(wrapper.length).toBe(1)
+    })
+    it('testing PlayerList', () => {
+        const wrapper = component.find(`[data-test="player-list"]`)
+        expect(wrapper.length).toBe(1)
+    })
+    it('testing map', () => {
+        const mapWrapper = component.find(`[data-test="players-map"]`).map(node => node.text())
+        expect(mapWrapper).toEqual([]);
+    })
+    it('testing submit', () => {
+        const form = component.find(`[data-test="submit"]`).first()
+        form.simulate('submit')
+        const wrapper = component.find(`[data-test="player-list"]`)
+        expect(wrapper.length).toBe(1)
+    })
+})
 
-  it('Test if Playeres render with his provider', async () => {
-    const store = configStore()
-    // const mockStore = configureStore()
-    // const store = mockStore()
-    const players = mount(
-      <Provider store={store}>
-        <Filters />
-      </Provider>)
-    players
-      .find('button#search')
-      .simulate('click')
-    // expect(handleSubmit()).toHaveBeenCalled();
-    const getName = await function (state) { state.searchPlayers.name }
-    // expect(store.getState().searchedPlayers("Lukaku")).toBe("Lukaku");
-    // expect(Selectors.isDataRequested(newState)).toBeTruthy();
-    players.unmount()
-  })
+describe('Testing if components render but isLoading...', () => {
+    let component;
+    beforeEach(() => {
+        component = setUp({}, true, false)
+    })
+    it('Is Loading...', () => {
+        const wrapper = component.find(`[data-test="filters"]`)
+        expect(wrapper.length).toBe(1)
+    })
+})
 
-  // Test Players container
-  it('Test if Player module renders', () => {
-    shallow(<Players />)
-  })
-  // Test Players module on the App context
-  it('Test if render all without crashing on the App context', () => {
-    shallow(<App />)
-  })
-
+describe('Testing if components render but hasErrored...', () => {
+    let component;
+    beforeEach(() => {
+        component = setUp({}, false, true)
+    })
+    it('has Errored...', () => {
+        const wrapper = component.find(`[data-test="filters"]`)
+        expect(wrapper.length).toBe(1)
+    })
 })
 
 describe('asyncFetch', () => {
