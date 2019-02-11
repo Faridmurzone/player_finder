@@ -17,16 +17,16 @@ class Filters extends Component {
     render() {
         return(
             <div className="d-flex justify-content-around m-2">
-                <form className="form-inline" id="filters" onSubmit={this.handleSubmit}>
-                    <div className="form-group">
+                <form className="form-inline col-md-12" id="filters" onSubmit={this.handleSubmit}>
+                    <div className="form-group col-md-12 text-center">
                     <input type="text" 
                         name="name"
-                        className="form-control mr-sm-2" 
+                        className="form-control mr-sm-2 col-xs-12 col-md-3" 
                         id="formInputName" 
                         placeholder="Player Name"
                         pattern="[a-zA-z\s]*"
                         />
-                    <select className="custom-select" id="formSelectPosition" name="position">
+                    <select className="custom-select col-xs-12 col-md-3 mr-2" id="formSelectPosition" name="position">
                         <option value="">Position...</option>
                         <option value="Attacking Midfield">Attacking Midfield</option>
                         <option value="Central Midfield">Central Midfield</option>
@@ -40,7 +40,7 @@ class Filters extends Component {
                     </select>   
                     <input type="number" 
                         name="age"
-                        className="form-control ml-2" 
+                        className="form-control col-xs-12 col-md-3" 
                         id="formInputAge" 
                         placeholder="Age" 
                         min="18"

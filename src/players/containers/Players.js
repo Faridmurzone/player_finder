@@ -19,7 +19,7 @@ class Players extends Component {
 
     return (
       <div className="container">
-        <h1 className="p-2 ml-3">FOOTBAL PLAYER FINDER</h1>
+        <h1 className="p-2 ml-3 text-center">FOOTBAL PLAYER FINDER</h1>
         <Filters />
         <PlayerList players={results} isLoading={isLoading} hasErrored={hasErrored} search={searchPlayers} />
       </div>
