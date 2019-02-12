@@ -5,10 +5,10 @@ class PlayerList extends Component {
     render() {
         const {hasErrored, isLoading} = this.props
         if (hasErrored) {
-            return <p>Sorry! There was an error loading the players</p>;
+            return <p className="errored">Sorry! There was an error loading the players</p>
         }
         if (isLoading) {
-            return <p>Loading players…</p>;
+            return <p className="loading">Loading players…</p>
         }
         return (
             <div className="col-md-12" data-test="player-list">

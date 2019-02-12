@@ -54,7 +54,7 @@ describe('Testing if components render but isLoading...', () => {
         component = setUp({}, true, false)
     })
     it('Is Loading...', () => {
-        const wrapper = component.find(`[data-test="filters"]`)
+        const wrapper = component.find(".loading")
         expect(wrapper.length).toBe(1)
     })
 })
@@ -65,13 +65,7 @@ describe('Testing if components render but hasErrored...', () => {
         component = setUp({}, false, true)
     })
     it('has Errored...', () => {
-        const wrapper = component.find(`[data-test="filters"]`)
+        const wrapper = component.find(".errored")
         expect(wrapper.length).toBe(1)
     })
-})
-
-describe('asyncFetch', () => {
-  it('can fetch', async () => {
-    const response = await fetchPlayersData('https://football-players-b31f2.firebaseio.com/players.json?print=pretty');
-  })
 })

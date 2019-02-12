@@ -13,6 +13,14 @@ code {
     monospace;
 }
 
+.loading {
+  color: #006f00
+}
+
+.errored {
+  color: #a10000
+}
+
 @media only screen and (max-width: 640px) {
   h1 {
     font-size: 1.5rem;

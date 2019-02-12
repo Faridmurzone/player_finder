@@ -1,14 +1,14 @@
 import { playersHasErrored, playersIsLoading, players, searchPlayers } from '../../store/reducers/players';
 import * as actions from '../../store/actions';
-// import * as selectors from '../../store/selectors';
 import rootReducer from '../../store/reducers';
 import configureStore from 'redux-mock-store';
 import { createStore } from 'redux';
+import thunk from 'redux-thunk';
 import expect from 'expect';
+import fetchMock from 'fetch-mock'
 
 // Actions and Reducers
 describe('Test actions and reducers', () => {
-
   // Test actions
   test('Dispatches the correct action and payload for each action', () => {
     const mockStore = configureStore();
@@ -69,5 +69,23 @@ describe('Test actions and reducers', () => {
     store.dispatch(PLAYERS_FETCH_DATA_SUCCESS)
     expect(store.getState().players).toEqual([])
   })
+})
 
+
+describe('Test fetchPlayersData', () => {
+  const middlewares = [ thunk ]
+  const mockStore = configureStore(middlewares)
+  const store = mockStore()
+  const expectedActions = 'PLAYERS_FETCH_DATA_SUCCESS'
+  const url = "https://football-players-b31f2.firebaseio.com/players.json?print=pretty"
+  test('200 Response', () => {
+    // Using fetchMock to generate a success (200) response
+    fetchMock.get('*', { response: 200 })
+    return store.dispatch(actions.fetchPlayersData(url))
+    })
+  test('404 Response', () => {
+      fetchMock.get('/errored', { response: 404 })
+      // return store.dispatch(actions.fetchPlayersData(url))
+      fetchMock.restore()
+    })
 })
